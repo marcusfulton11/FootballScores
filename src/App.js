@@ -1,10 +1,17 @@
-import React, {useState, useEffect, useMemo} from "react";
+import React, {useState, useEffect} from "react";
 import "./App.css";
 // import TeamGrid from './Components/Teams/TeamGrid';
-import TableDatePicker from './Components/DatePicker';
+import DatePicker from './Components/DatePicker';
 import axios from "axios";
 
 const App = () => {
+
+
+    const today = new Date()
+
+    const formattedDate = () => {
+      return today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate()
+    }
 
     const [firstLocalLogo, setFirstLocalLogo] = useState("");
     const [firstVisitorLogo, setFirstVisitorLogo] = useState("");
@@ -30,17 +37,8 @@ const App = () => {
     const [sixthVisitorLogo, setSixthVisitorLogo] = useState("");
     const [sixthFtScoreText, setSixthFtScoreText] = useState("");
 
-    const [date, setDate] = useState(new Date());
-
-
-    const onChange = date => {
-      setDate(date);
-  }
+    const [date, setDate] = useState(formattedDate)
  
-  const formatted_date = useMemo(() => {
-    return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate()
-  }, [date])
-
 
   let firstLocalTeam;
   let firstVisitorTeam;
@@ -63,6 +61,7 @@ const App = () => {
   let fithFtScore;
 
   let sixthLocalTeam;
+  
   let sixthVisitorTeam;
   let sixthFtScore;
 
@@ -70,16 +69,19 @@ const App = () => {
 
   const fetchItems = async () => {
       const result = await axios.get(
-          // `https://soccer.sportmonks.com/api/v2.0/fixtures/date/${todaysDate}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`
+     `https://soccer.sportmonks.com/api/v2.0/fixtures/date/${date}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`
           // ); // this line brings in the data from todays date with the 'todaysDate' function above
-              `https://soccer.sportmonks.com/api/v2.0/fixtures/date/2021-10-27?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`
+            //  `https://soccer.sportmonks.com/api/v2.0/fixtures/date/2021-10-27?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`
       ); // test for previous date with all scores settled
-
+  
+      if (result.data.data.length <= 0) {
+        return [] // going to try using array with two items in it. one will print to screen if there is data the other will print the data
+      }
       firstLocalTeam = result.data.data[0].localteam_id;
       const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${firstLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(localTeamInfo);
       setFirstLocalLogo(localTeamInfo.data.data.logo_path);
-
+      
       firstVisitorTeam = result.data.data[0].visitorteam_id;
       const visitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${firstVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(visitorTeamInfo);
@@ -89,10 +91,11 @@ const App = () => {
       setFirstFtScoreText(firstFtScore); // the last few lines of code brings in the first game of todays badges and final score
 
 
-     
-     
-     
-      secondLocalTeam = result.data.data[1].localteam_id;
+
+      // if (result.data.data.length < 1) {
+      //   return console.log('HI 2')
+      // }
+      secondLocalTeam = result.data.data[1].localteam_id; 
       const secondLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${secondLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(secondLocalTeamInfo);
       setSecondLocalLogo(secondLocalTeamInfo.data.data.logo_path);
@@ -105,91 +108,97 @@ const App = () => {
       secondFtScore = result.data.data[1].scores.ft_score;
       setSecondFtScoreText(secondFtScore);
 
-
+      
      
      
-     
-      thirdLocalTeam = result.data.data[2].localteam_id;
-      const thirdLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${thirdLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(thirdLocalTeamInfo);
-      setThirdLocalLogo(thirdLocalTeamInfo.data.data.logo_path);
+      // if (result.data.data.length < 2) {
+      //   return console.log('HI 3')
+      // }
+      // thirdLocalTeam = result.data.data[2].localteam_id;
+      // const thirdLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${thirdLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      // console.log(thirdLocalTeamInfo);
+      // setThirdLocalLogo(thirdLocalTeamInfo.data.data.logo_path);
 
-      thirdVisitorTeam = result.data.data[2].visitorteam_id;
-      const thirdVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${thirdVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(thirdVisitorTeamInfo);
-      setThirdVisitorLogo(thirdVisitorTeamInfo.data.data.logo_path);
+      // thirdVisitorTeam = result.data.data[2].visitorteam_id;
+      // const thirdVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${thirdVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      // console.log(thirdVisitorTeamInfo);
+      // setThirdVisitorLogo(thirdVisitorTeamInfo.data.data.logo_path);
 
-      thirdFtScore = result.data.data[2].scores.ft_score;
-      setThirdFtScoreText(thirdFtScore);
-
-
-     
-     
-     
-      fourthLocalTeam = result.data.data[3].localteam_id;
-      const fourthLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fourthLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(fourthLocalTeamInfo);
-      setFourthLocalLogo(fourthLocalTeamInfo.data.data.logo_path);
-
-      fourthVisitorTeam = result.data.data[3].visitorteam_id;
-      const fourthVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fourthVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(fourthVisitorTeamInfo);
-      setFourthVisitorLogo(fourthVisitorTeamInfo.data.data.logo_path);
-
-      fourthFtScore = result.data.data[3].scores.ft_score;
-      setFourthFtScoreText(fourthFtScore);
+      // thirdFtScore = result.data.data[2].scores.ft_score;
+      // setThirdFtScoreText(thirdFtScore);
 
 
      
      
+      // if (result.data.data.length < 3) {
+      //   return console.log('HI 4')
+      // }
+      // fourthLocalTeam = result.data.data[3].localteam_id;
+      // const fourthLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fourthLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      // console.log(fourthLocalTeamInfo);
+      // setFourthLocalLogo(fourthLocalTeamInfo.data.data.logo_path);
+
+      // fourthVisitorTeam = result.data.data[3].visitorteam_id;
+      // const fourthVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fourthVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      // console.log(fourthVisitorTeamInfo);
+      // setFourthVisitorLogo(fourthVisitorTeamInfo.data.data.logo_path);
+
+      // fourthFtScore = result.data.data[3].scores.ft_score;
+      // setFourthFtScoreText(fourthFtScore);
+
+
      
-      fithLocalTeam = result.data.data[4].localteam_id;
-      const fithLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fithLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(fithLocalTeamInfo);
-      setFithLocalLogo(fithLocalTeamInfo.data.data.logo_path);
+     
+      // if (result.data.data.length < 4) {
+      //   return console.log('HI 2')
+      // }
+      // fithLocalTeam = result.data.data[4].localteam_id;
+      // const fithLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fithLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      // console.log(fithLocalTeamInfo);
+      // setFithLocalLogo(fithLocalTeamInfo.data.data.logo_path);
 
-      fithVisitorTeam = result.data.data[4].visitorteam_id;
-      const fithVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fithVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(fithVisitorTeamInfo);
-      setFithVisitorLogo(fithVisitorTeamInfo.data.data.logo_path);
+      // fithVisitorTeam = result.data.data[4].visitorteam_id;
+      // const fithVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fithVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      // console.log(fithVisitorTeamInfo);
+      // setFithVisitorLogo(fithVisitorTeamInfo.data.data.logo_path);
 
-      fithFtScore = result.data.data[4].scores.ft_score;
-      setFithFtScoreText(fithFtScore);
+      // fithFtScore = result.data.data[4].scores.ft_score;
+      // setFithFtScoreText(fithFtScore);
 
 
      
      
      
-      sixthLocalTeam = result.data.data[5].localteam_id;
-      const sixthLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${sixthLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(sixthLocalTeamInfo);
-      setSixthLocalLogo(sixthLocalTeamInfo.data.data.logo_path);
+      // sixthLocalTeam = result.data.data[5].localteam_id;
+      // const sixthLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${sixthLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      // console.log(sixthLocalTeamInfo);
+      // setSixthLocalLogo(sixthLocalTeamInfo.data.data.logo_path);
 
-      sixthVisitorTeam = result.data.data[5].visitorteam_id;
-      const sixthVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${sixthVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(sixthVisitorTeamInfo);
-      setSixthVisitorLogo(sixthVisitorTeamInfo.data.data.logo_path);
+      // sixthVisitorTeam = result.data.data[5].visitorteam_id;
+      // const sixthVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${sixthVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      // console.log(sixthVisitorTeamInfo);
+      // setSixthVisitorLogo(sixthVisitorTeamInfo.data.data.logo_path);
 
-      sixthFtScore = result.data.data[5].scores.ft_score;
-      setSixthFtScoreText(sixthFtScore);
+      // sixthFtScore = result.data.data[5].scores.ft_score;
+      // setSixthFtScoreText(sixthFtScore);
 
 
-  };
-
-  fetchItems();
+    };
 
     useEffect(() => {
-      fetchItems()
-    }, [formatted_date]);
+
+        fetchItems()
+      
+    }, [date]);
 
     
-
+console.log(date)
     return (
         <div className='App'>
             <header className='container'>Todays Scores</header>
-            <TableDatePicker
+            <DatePicker
              date={date}
-             onChange={setDate}
+             setDate={setDate}
             />
 
 
