@@ -4,6 +4,7 @@ import "./App.css";
 import DatePicker from './Components/DatePicker';
 import axios from "axios";
 
+
 const App = () => {
 
 
@@ -13,29 +14,69 @@ const App = () => {
       return today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate()
     }
 
-    const [firstLocalLogo, setFirstLocalLogo] = useState("");
-    const [firstVisitorLogo, setFirstVisitorLogo] = useState("");
-    const [firstFtScoreText, setFirstFtScoreText] = useState("");
 
-    const [secondLocalLogo, setSecondLocalLogo] = useState("");
-    const [secondVisitorLogo, setSecondVisitorLogo] = useState("");
-    const [secondFtScoreText, setSecondFtScoreText] = useState("");
+    
 
-    const [thirdLocalLogo, setThirdLocalLogo] = useState("");
-    const [thirdVisitorLogo, setThirdVisitorLogo] = useState("");
-    const [thirdFtScoreText, setThirdFtScoreText] = useState("");
+    const [firstGame, setFirstGame] = useState({
+      firstLocalLogo: "",
+      firstVisitorLogo: "",
+      firstFtScoreText: ""
+    });
 
-    const [fourthLocalLogo, setFourthLocalLogo] = useState("");
-    const [fourthVisitorLogo, setFourthVisitorLogo] = useState("");
-    const [fourthFtScoreText, setFourthFtScoreText] = useState("");
 
-    const [fithLocalLogo, setFithLocalLogo] = useState("");
-    const [fithVisitorLogo, setFithVisitorLogo] = useState("");
-    const [fithFtScoreText, setFithFtScoreText] = useState("");
+    // const [firstLocalLogo, setFirstLocalLogo] = useState("");
+    // const [firstVisitorLogo, setFirstVisitorLogo] = useState("");
+    // const [firstFtScoreText, setFirstFtScoreText] = useState("");
 
-    const [sixthLocalLogo, setSixthLocalLogo] = useState("");
-    const [sixthVisitorLogo, setSixthVisitorLogo] = useState("");
-    const [sixthFtScoreText, setSixthFtScoreText] = useState("");
+    const [secondGame, setSecondGame] = useState({
+      secondLocalLogo: "",
+      secondVisitorLogo: "",
+      secondFtScoreText: ""
+    });
+
+    // const [secondLocalLogo, setSecondLocalLogo] = useState("");
+    // const [secondVisitorLogo, setSecondVisitorLogo] = useState("");
+    // const [secondFtScoreText, setSecondFtScoreText] = useState("");
+
+    const [thirdGame, setThirdGame] = useState({
+      thirdLocalLogo: "",
+      thirdVisitorLogo: "",
+      thirdFtScoreText: ""
+    });
+
+    // const [thirdLocalLogo, setThirdLocalLogo] = useState("");
+    // const [thirdVisitorLogo, setThirdVisitorLogo] = useState("");
+    // const [thirdFtScoreText, setThirdFtScoreText] = useState("");
+
+    const [fourthGame, setFourthGame] = useState({
+      fourthLocalLogo: "",
+      fourthVisitorLogo: "",
+      fourthFtScoreText: ""
+    });
+
+    // const [fourthLocalLogo, setFourthLocalLogo] = useState("");
+    // const [fourthVisitorLogo, setFourthVisitorLogo] = useState("");
+    // const [fourthFtScoreText, setFourthFtScoreText] = useState("");
+
+    const [fithGame, setFithGame] = useState({
+      fithLocalLogo: "",
+      fithVisitorLogo: "",
+      fithFtScoreText: ""
+    });
+
+    // const [fithLocalLogo, setFithLocalLogo] = useState("");
+    // const [fithVisitorLogo, setFithVisitorLogo] = useState("");
+    // const [fithFtScoreText, setFithFtScoreText] = useState("");
+
+    const [sixthGame, setSixthGame] = useState({
+      sixthLocalLogo: "",
+      sixthVisitorLogo: "",
+      sixthFtScoreText: ""
+    });
+
+    // const [sixthLocalLogo, setSixthLocalLogo] = useState("");
+    // const [sixthVisitorLogo, setSixthVisitorLogo] = useState("");
+    // const [sixthFtScoreText, setSixthFtScoreText] = useState("");
 
     const [date, setDate] = useState(formattedDate)
  
@@ -65,9 +106,17 @@ const App = () => {
   let sixthVisitorTeam;
   let sixthFtScore;
 
-const withoutData = 'No result'
+
 
 let result = []
+
+
+// const clearDates = () =>
+//  { while ([firstLocalLogo, firstVisitorLogo, firstFtScoreText ] !== "") {
+//   setFirstLocalLogo() // take in all scores and logos and clear them
+// }
+// }
+
 
   const fetchItems = async () => {
        result = await axios.get(
@@ -75,14 +124,15 @@ let result = []
           // ); // this line brings in the data from todays date with the 'todaysDate' function above
             //  `https://soccer.sportmonks.com/api/v2.0/fixtures/date/2021-10-27?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`
       ); // test for previous date with all scores settled
-  
-      if (result.data.data.length <= 0) {
-        return [withoutData]
-      }
+        
+      if (result.data.data.length !== 0) {
+        
+      
+      console.log(result.data)
       firstLocalTeam = result.data.data[0].localteam_id;
       const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${firstLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(localTeamInfo);
-      setFirstLocalLogo(localTeamInfo.data.data.logo_path);
+      setFirstGame(localTeamInfo.data.data.logo_path);
       
       firstVisitorTeam = result.data.data[0].visitorteam_id;
       const visitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${firstVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
@@ -91,7 +141,7 @@ let result = []
 
       firstFtScore = result.data.data[0].scores.ft_score;
       setFirstFtScoreText(firstFtScore); // the last few lines of code brings in the first game of todays badges and final score
-
+      }
 
 
       if (result.data.data[1] !== undefined) {
@@ -182,7 +232,7 @@ let result = []
     };
 
     useEffect(() => {
-
+      
         fetchItems()
       
     }, [date]);
