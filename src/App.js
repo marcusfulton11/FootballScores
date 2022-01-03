@@ -132,15 +132,15 @@ let result = []
       firstLocalTeam = result.data.data[0].localteam_id;
       const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${firstLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(localTeamInfo);
-      setFirstGame(localTeamInfo.data.data.logo_path);
+      setFirstGame(localTeamInfo.data.data.logo_path); // need to use spread operator here somehow to specifically target the 'firstLocalLogo' state
       
       firstVisitorTeam = result.data.data[0].visitorteam_id;
       const visitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${firstVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(visitorTeamInfo);
-      setFirstVisitorLogo(visitorTeamInfo.data.data.logo_path);
+      setFirstGame(visitorTeamInfo.data.data.logo_path);
 
       firstFtScore = result.data.data[0].scores.ft_score;
-      setFirstFtScoreText(firstFtScore); // the last few lines of code brings in the first game of todays badges and final score
+      setFirstGame(firstFtScore); // the last few lines of code brings in the first game of todays badges and final score
       }
 
 
@@ -149,15 +149,15 @@ let result = []
       secondLocalTeam = result.data.data[1].localteam_id; 
       const secondLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${secondLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(secondLocalTeamInfo);
-      setSecondLocalLogo(secondLocalTeamInfo.data.data.logo_path);
+      setSecondGame(secondLocalTeamInfo.data.data.logo_path);
 
       secondVisitorTeam = result.data.data[1].visitorteam_id;
       const secondVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${secondVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(secondVisitorTeamInfo);
-      setSecondVisitorLogo(secondVisitorTeamInfo.data.data.logo_path);
+      setSecondGame(secondVisitorTeamInfo.data.data.logo_path);
 
       secondFtScore = result.data.data[1].scores.ft_score;
-      setSecondFtScoreText(secondFtScore);
+      setSecondGame(secondFtScore);
       }
       
      
@@ -167,15 +167,15 @@ let result = []
       thirdLocalTeam = result.data.data[2].localteam_id;
       const thirdLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${thirdLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(thirdLocalTeamInfo);
-      setThirdLocalLogo(thirdLocalTeamInfo.data.data.logo_path);
+      setThirdGame(thirdLocalTeamInfo.data.data.logo_path);
 
       thirdVisitorTeam = result.data.data[2].visitorteam_id;
       const thirdVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${thirdVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(thirdVisitorTeamInfo);
-      setThirdVisitorLogo(thirdVisitorTeamInfo.data.data.logo_path);
+      setThirdGame(thirdVisitorTeamInfo.data.data.logo_path);
 
       thirdFtScore = result.data.data[2].scores.ft_score;
-      setThirdFtScoreText(thirdFtScore);
+      setThirdGame(thirdFtScore);
       }
 
      
@@ -184,15 +184,15 @@ let result = []
       fourthLocalTeam = result.data.data[3].localteam_id;
       const fourthLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fourthLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(fourthLocalTeamInfo);
-      setFourthLocalLogo(fourthLocalTeamInfo.data.data.logo_path);
+      setFourthGame(fourthLocalTeamInfo.data.data.logo_path);
 
       fourthVisitorTeam = result.data.data[3].visitorteam_id;
       const fourthVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fourthVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(fourthVisitorTeamInfo);
-      setFourthVisitorLogo(fourthVisitorTeamInfo.data.data.logo_path);
+      setFourthGame(fourthVisitorTeamInfo.data.data.logo_path);
 
       fourthFtScore = result.data.data[3].scores.ft_score;
-      setFourthFtScoreText(fourthFtScore);
+      setFourthGame(fourthFtScore);
       }
 
      
@@ -201,15 +201,15 @@ let result = []
       fithLocalTeam = result.data.data[4].localteam_id;
       const fithLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fithLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(fithLocalTeamInfo);
-      setFithLocalLogo(fithLocalTeamInfo.data.data.logo_path);
+      setFithGame(fithLocalTeamInfo.data.data.logo_path);
 
       fithVisitorTeam = result.data.data[4].visitorteam_id;
       const fithVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${fithVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(fithVisitorTeamInfo);
-      setFithVisitorLogo(fithVisitorTeamInfo.data.data.logo_path);
+      setFithGame(fithVisitorTeamInfo.data.data.logo_path);
 
       fithFtScore = result.data.data[4].scores.ft_score;
-      setFithFtScoreText(fithFtScore);
+      setFithGame(fithFtScore);
       }
 
      
@@ -218,15 +218,15 @@ let result = []
       sixthLocalTeam = result.data.data[5].localteam_id;
       const sixthLocalTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${sixthLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(sixthLocalTeamInfo);
-      setSixthLocalLogo(sixthLocalTeamInfo.data.data.logo_path);
+      setSixthGame(sixthLocalTeamInfo.data.data.logo_path);
 
       sixthVisitorTeam = result.data.data[5].visitorteam_id;
       const sixthVisitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${sixthVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(sixthVisitorTeamInfo);
-      setSixthVisitorLogo(sixthVisitorTeamInfo.data.data.logo_path);
+      setFithGame(sixthVisitorTeamInfo.data.data.logo_path);
 
       sixthFtScore = result.data.data[5].scores.ft_score;
-      setSixthFtScoreText(sixthFtScore);
+      setFithGame(sixthFtScore);
       }
 
     };
@@ -249,80 +249,80 @@ console.log(date)
             
               <div>
             <div className='scores1'>
-              {firstLocalLogo !== ""? (
-                <img src={firstLocalLogo}
+              {firstGame.firstLocalLogo !== ""? (
+                <img src={firstGame}
                     alt='local logo'/>
                 ): null}
-              {firstFtScoreText !== ""? (
-                <p>{firstFtScoreText}</p>
+              {firstGame.firstFtScoreText !== ""? (
+                <p>{firstGame.firstFtScoreText}</p>
               ): null}
-              {firstVisitorLogo !== ""? (
-                <img src={firstVisitorLogo}
+              {firstGame.firstVisitorLogo !== ""? (
+                <img src={firstGame.firstVisitorLogo}
                     alt='visitor logo'/>
                     ): null}
             </div>
             <div className='scores2'>
-              {secondLocalLogo !== ""? (
-                <img src={secondLocalLogo}
+              {secondGame.secondLocalLogo !== ""? (
+                <img src={secondGame.secondLocalLogo}
                     alt='local logo'/>
                 ): null}
-              {secondFtScoreText !== ""? (
-                <p>{secondFtScoreText}</p>
+              {secondGame.secondFtScoreText !== ""? (
+                <p>{secondGame.secondFtScoreText}</p>
               ): null}
-              {secondVisitorLogo !== ""? (
-                <img src={secondVisitorLogo}
+              {secondGame.secondVisitorLogo !== ""? (
+                <img src={secondGame.secondVisitorLogo}
                     alt='visitor logo'/>
                     ): null}
             </div>
             <div className='scores3'>
-            {thirdLocalLogo !== ""? (
-                <img src={thirdLocalLogo}
+            {thirdGame.thirdLocalLogo !== ""? (
+                <img src={thirdGame.thirdLocalLogo}
                     alt='local logo'/>
                 ): null}
-              {thirdFtScoreText !== ""? (
-                <p>{thirdFtScoreText}</p>
+              {thirdGame.thirdFtScoreText !== ""? (
+                <p>{thirdGame.thirdFtScoreText}</p>
               ): null}
-              {thirdVisitorLogo !== ""? (
-                <img src={thirdVisitorLogo}
+              {thirdGame.thirdVisitorLogo !== ""? (
+                <img src={thirdGame.thirdVisitorLogo}
                     alt='visitor logo'/>
                     ): null}
             </div>
             <div className='scores4'>
-            {fourthLocalLogo !== ""? (
-                <img src={fourthLocalLogo}
+            {fourthGame.fourthLocalLogo !== ""? (
+                <img src={fourthGame.fourthLocalLogo}
                     alt='local logo'/>
                 ): null}
-              {fourthFtScoreText !== ""? (
-                <p>{fourthFtScoreText}</p>
+              {fourthGame.fourthFtScoreText !== ""? (
+                <p>{fourthGame.fourthFtScoreText}</p>
               ): null}
-              {fourthVisitorLogo !== ""? (
-                <img src={fourthVisitorLogo}
+              {fourthGame.fourthVisitorLogo !== ""? (
+                <img src={fourthGame.fourthVisitorLogo}
                     alt='visitor logo'/>
                     ): null}
             </div>
             <div className='scores5'>
-            {fithLocalLogo !== ""? (
-                <img src={fithLocalLogo}
+            {fithGame.fithLocalLogo !== ""? (
+                <img src={fithGame.fithLocalLogo}
                     alt='local logo'/>
                 ): null}
-              {fithFtScoreText !== ""? (
-                <p>{fithFtScoreText}</p>
+              {fithGame.fithFtScoreText !== ""? (
+                <p>{fithGame.fithFtScoreText}</p>
               ): null}
-              {fithVisitorLogo !== ""? (
-                <img src={fithVisitorLogo}
+              {fithGame.fithVisitorLogo !== ""? (
+                <img src={fithGame.fithVisitorLogo}
                     alt='visitor logo'/>
                     ): null}
             </div>
             <div className='scores6'>
-            {sixthLocalLogo !== ""? (
-                <img src={sixthLocalLogo}
+            {sixthGame.sixthLocalLogo !== ""? (
+                <img src={sixthGame.sixthLocalLogo}
                     alt='local logo'/>
                 ): null}
-              {sixthFtScoreText !== ""? (
-                <p>{sixthFtScoreText}</p>
+              {sixthGame.sixthFtScoreText !== ""? (
+                <p>{sixthGame.sixthFtScoreText}</p>
               ): null}
-              {sixthVisitorLogo !== ""? (
-                <img src={sixthVisitorLogo}
+              {sixthGame.sixthVisitorLogo !== ""? (
+                <img src={sixthGame.sixthVisitorLogo}
                     alt='visitor logo'/>
                     ): null}
             </div>
