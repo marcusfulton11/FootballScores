@@ -1,0 +1,8 @@
+// create function that grabs each home team and prints to screen
+// create function that grabs each away team and prints to screen
+// create function that grabs each score and prints to screen
+
+//create 3 states one for each function
+
+
+//so i think i need to create a loop to loop through the api to grab each team/score. 
