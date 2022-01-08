@@ -86,7 +86,7 @@ const App = () => {
  
 
 
-    let localTeam;
+    // let localTeam;
     let visitorTeam;
     let FtScore;
 
@@ -127,6 +127,11 @@ let result = []
 // }
 
 
+
+
+
+
+
   const fetchItems = async () => {
        result = await axios.get(
      `https://soccer.sportmonks.com/api/v2.0/fixtures/date/${date}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`
@@ -139,8 +144,15 @@ let result = []
      
      
      
-      localTeam = result.data.data.localTeam_id; // need to loop through each team to grab one id after another
-      const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${firstLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+        let localTeam = result.data.data
+        let txt = "[]";
+        localTeam.forEach(myFunction)
+        function myFunction(value) {
+          txt += value + "<br>";
+        }
+        console.log(localTeam)
+        localTeam = localTeam.localteam_id
+      const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${localTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(localTeamInfo);
       setLocalLogo(localTeamInfo.data.ta.logo_path)
       // from 130 - 133 i should be able to grab every local team with logo
@@ -155,7 +167,7 @@ let result = []
 
 
       visitorTeam = result.data.data.visitorteam_id;
-      const visitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${firstVisitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      const visitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${visitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(visitorTeamInfo);
       setVisitorLogo(visitorTeamInfo.data.data.logo_path);
       // from 157 - 160 i should be able to grab every visitor team with logo
@@ -279,19 +291,19 @@ console.log(date)
             
               <div>
             <div className='scores1'>
-              {firstGame.firstLocalLogo !== ""? (
-                <img src={firstGame}
+              {localLogo !== ""? (
+                <img src={localLogo}
                     alt='local logo'/>
                 ): null}
-              {firstGame.firstFtScoreText !== ""? (
-                <p>{firstGame.firstFtScoreText}</p>
+              {ftScoreText !== ""? (
+                <p>{ftScoreText}</p>
               ): null}
-              {firstGame.firstVisitorLogo !== ""? (
-                <img src={firstGame.firstVisitorLogo}
+              {visitorLogo !== ""? (
+                <img src={visitorLogo}
                     alt='visitor logo'/>
                     ): null}
             </div>
-            <div className='scores2'>
+            {/* <div className='scores2'>
               {secondGame.secondLocalLogo !== ""? (
                 <img src={secondGame.secondLocalLogo}
                     alt='local logo'/>
@@ -354,8 +366,8 @@ console.log(date)
               {sixthGame.sixthVisitorLogo !== ""? (
                 <img src={sixthGame.sixthVisitorLogo}
                     alt='visitor logo'/>
-                    ): null}
-            </div>
+                    ): null} */}
+            {/* </div> */}
             </div>
              </div>
     );
