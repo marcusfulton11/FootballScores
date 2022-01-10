@@ -24,7 +24,7 @@ const App = () => {
     // });
 
 
-    const [localLogo, setLocalLogo] = useState("");
+    const [localLogo, setLocalLogo] = useState([]);
     const [visitorLogo, setVisitorLogo] = useState("");
     const [ftScoreText, setFtScoreText] = useState("");
 
@@ -86,7 +86,7 @@ const App = () => {
  
 
 
-    // let localTeam;
+    let localTeam;
     let visitorTeam;
     let FtScore;
 
@@ -144,32 +144,22 @@ let result = []
      
      
      
-        let localTeam = result.data.data
-        let txt = "[]";
-        localTeam.forEach(myFunction)
-        function myFunction(value) {
-          txt += value + "<br>";
-        }
-        console.log(localTeam)
-        localTeam = localTeam.localteam_id
-      const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${localTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(localTeamInfo);
-      setLocalLogo(localTeamInfo.data.ta.logo_path)
+ 
       // from 130 - 133 i should be able to grab every local team with logo
 
 
-      // console.log(result.data)
-      // firstLocalTeam = result.data.data[0].localteam_id;
-      // const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${firstLocalTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      // console.log(localTeamInfo);
-      // setFirstGame(localTeamInfo.data.data.logo_path); // need to use spread operator here somehow to specifically target the 'firstLocalLogo' state
+      console.log(result.data)
+      localTeam = result.data.data.localteam_id;
+      const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${localTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      console.log(localTeamInfo);
+      setLocalLogo(localTeamInfo.data.data.logo_path);
       
 
 
-      visitorTeam = result.data.data.visitorteam_id;
-      const visitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${visitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(visitorTeamInfo);
-      setVisitorLogo(visitorTeamInfo.data.data.logo_path);
+      // visitorTeam = result.data.data.visitorteam_id;
+      // const visitorTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${visitorTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      // console.log(visitorTeamInfo);
+      // setVisitorLogo(visitorTeamInfo.data.data.logo_path);
       // from 157 - 160 i should be able to grab every visitor team with logo
 
       // firstVisitorTeam = result.data.data[0].visitorteam_id;
@@ -177,8 +167,8 @@ let result = []
       // console.log(visitorTeamInfo);
       // setFirstGame(visitorTeamInfo.data.data.logo_path);
 
-      FtScore = result.data.data.scores.ft_score;
-      setFtScoreText(FtScore);
+      // FtScore = result.data.data.scores.ft_score;
+      // setFtScoreText(FtScore);
       // from 168 - 169 i should be able to grab every ft score text 
 
       // firstFtScore = result.data.data[0].scores.ft_score;
@@ -291,7 +281,10 @@ console.log(date)
             
               <div>
             <div className='scores1'>
-              {localLogo !== ""? (
+              {localLogo.map((localLogo)=>(
+                <li>{localLogo}</li>
+              ))}
+              {/* {localLogo !== ""? (
                 <img src={localLogo}
                     alt='local logo'/>
                 ): null}
@@ -301,7 +294,7 @@ console.log(date)
               {visitorLogo !== ""? (
                 <img src={visitorLogo}
                     alt='visitor logo'/>
-                    ): null}
+                    ): null} */}
             </div>
             {/* <div className='scores2'>
               {secondGame.secondLocalLogo !== ""? (
