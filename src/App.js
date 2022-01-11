@@ -152,7 +152,7 @@ let result = []
       localTeam = result.data.data.localteam_id;
       const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${localTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
       console.log(localTeamInfo);
-      setLocalLogo(localTeamInfo.data.data.logo_path);
+      setLocalLogo(localTeamInfo.data.data);
       
 
 
@@ -281,8 +281,10 @@ console.log(date)
             
               <div>
             <div className='scores1'>
-              {localLogo.map((localLogo)=>(
-                <li>{localLogo}</li>
+              {localLogo.map((logo)=>(
+                <li key={logo.data.logo_path}>
+                  {logo.data.logo_path}
+                  </li>
               ))}
               {/* {localLogo !== ""? (
                 <img src={localLogo}
