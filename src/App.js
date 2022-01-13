@@ -14,7 +14,7 @@ const App = () => {
     }
 
 
-    const [localLogo, setLocalLogo] = useState([]);
+    const [homeTeamLogos, setHomeTeamLogos] = useState([]);
     const [visitorLogo, setVisitorLogo] = useState("");
     const [ftScoreText, setFtScoreText] = useState("");
 
@@ -37,17 +37,20 @@ let result = []
           // ); // this line brings in the data from todays date with the 'todaysDate' function above
             //  `https://soccer.sportmonks.com/api/v2.0/fixtures/date/2021-10-27?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`
       ); // test for previous date with all scores settled
-        
-      if (result.data.data.length !== 0) {
-        
-      localTeam = result.data.data.localteam_id; //after second data i need to loop from 0 index to 6(or however many local teams there are)
-      const localTeamInfo = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${localTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
-      console.log(localTeamInfo);
-      setLocalLogo(localTeamInfo.data.data);
-      }
-    };
+    
+    const footballDataArray = result.data.data
 
-    console.log(localTeam) // showing undefined
+
+      if (footballDataArray.length !== 0) {
+        for (let match = 0; match < footballDataArray.length; match++) {
+          localTeam = footballDataArray[match].localteam_id;
+        
+      const unparsedLocalTeamData = await axios.get(`https://soccer.sportmonks.com/api/v2.0/teams/${localTeam}?api_token=nryB1n8jVKa1xg9vetU8MClVhe6RvDpix7skQuz5ufDIcShRnIEeLpnfErWb`);
+      console.log(unparsedLocalTeamData.data.data.logo_path);
+      setHomeTeamLogos(homeTeamLogos => [...homeTeamLogos, unparsedLocalTeamData.data.data.logo_path]);
+        
+      }}
+    };
 
     useEffect(() => {
       
@@ -67,10 +70,10 @@ console.log(date)
             
               <div>
             <div className='scores1'>
-              {localLogo.map((logo)=>{
+              {homeTeamLogos.map((logo)=>{
                 return (
-                <li key={logo.data.logo_path}>
-                  {logo.data.logo_path}
+                <li key={logo.data} alt="home logos">
+                <img> {logo.data} </img>
                   </li>
               )})}
             </div>
