@@ -72,8 +72,8 @@ console.log(date)
             <div className='scores1'>
               {homeTeamLogos.map((logo)=>{
                 return (
-                <li key={logo.data} alt="home logos">
-                <img> {logo.data} </img>
+                <li key={logo.data} >
+                <img alt="home logos"> {logo.data} </img>
                   </li>
               )})}
             </div>
