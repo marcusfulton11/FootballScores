@@ -54,7 +54,7 @@ let result = []
 
     useEffect(() => {
       
-        fetchItems()
+        fetchItems( )
       
     }, [date]);
 
