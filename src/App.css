@@ -2,18 +2,27 @@
   text-align: center;
 }
 
-.scores1 {
+.homeLogos {
   background-color: rgb(9, 33, 99);
+  width: 150px;
+  height: 700px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 }
 
-.scores2 {
+.homeLogos,img {
+  padding: 5px;
+}
+
+.awayLogos {
   background-color: rgb(37, 231, 19);
+  width: 150px;
+  height: 700px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+  float: right;
 }
 
 .scores3 {
