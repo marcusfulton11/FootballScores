@@ -7,7 +7,7 @@ import axios from "axios";
  const App = () => {
 
 
-    const today = new Date()
+     const today = new Date()
 
     const formattedDate = () => {
         return today.getFullYear() + "-" + (
